@@ -43,3 +43,16 @@ get '/delete_product/:id' do
   redirect to '/admin'
 end
 # ROUTES FOR ADMIN SECTION
+
+get '/about' do
+	erb :about
+end
+
+get '/' do
+	erb :index
+end
+
+get '/products' do
+	@products = Item.all
+	erb :product_list
+end
