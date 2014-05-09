@@ -34,6 +34,25 @@
     </div>
 
     <h1> ALL YOU SUCKA MCS AIN'T GOT NOTHIN' ON ME </h1>
+	<table class="table table-striped">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Price</td>
+              <td>Quantity</td>
+            </tr>
+          </thead>
+          <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.price %></td>
+              <td><%= product.quantity %></td>
+              <td><a href="/buy_item_form/<%= product.id %>" class="btn btn-default btn-primary">Purchase</a></td>
+            </tr>
+          </tbody>
+          <% end %>
+        </table>
 
     </div><!-- /.container -->
 

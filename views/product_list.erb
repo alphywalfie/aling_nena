@@ -41,7 +41,6 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <td>ID</td>
               <td>Name</td>
               <td>Price</td>
               <td>Quantity</td>
@@ -53,7 +52,7 @@
               <td><%= product.name %></td>
               <td><%= product.price %></td>
               <td><%= product.quantity %></td>
-              <td><a href="/buy_form/<%= product.id %>" class="btn btn-default btn-primary">Purchase</a></td>
+              <td><a href="/buy_item_form/<%= product.id %>" class="btn btn-default btn-primary">Purchase</a></td>
             </tr>
           </tbody>
           <% end %>

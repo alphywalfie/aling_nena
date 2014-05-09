@@ -1,9 +1,10 @@
 require 'sinatra'
 require './boot.rb'
 
+products = Item.all
 # ROUTES FOR ADMIN SECTION
 get '/admin' do
-  @products = Item.all
+  @products = products
   erb :admin_index
 end
 
@@ -49,10 +50,31 @@ get '/about' do
 end
 
 get '/' do
+	@products = products.sample(10)
 	erb :index
 end
 
 get '/products' do
-	@products = Item.all
+	@products = products
 	erb :product_list
+end
+
+get '/buy_item_form/:id' do
+	@product = Item.find(params[:id])
+	erb :buy_form
+end
+
+post '/buy_item/:id' do
+	@product = Item.find(params[:id])
+	quantity = params[:quantity].to_i
+	newquantity = @product.quantity - quantity
+	newsold  = @product.sold + quantity
+	@product.update_attributes!(
+	quantity: newquantity, 
+	sold: newsold,
+	)
+	
+	"The new quantity is #{@product.quantity}"
+	
+	redirect to '/'
 end
