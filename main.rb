@@ -1,5 +1,6 @@
 require 'sinatra'
 require './boot.rb'
+#require './money_calculator.rb'
 
 products = Item.all
 # ROUTES FOR ADMIN SECTION
@@ -73,6 +74,8 @@ post '/buy_item/:id' do
 	quantity: newquantity, 
 	sold: newsold,
 	)
+	
+	#@money_calc = MoneyCalculator.new(params[:ones])	
 	
 	"The new quantity is #{@product.quantity}"
 	

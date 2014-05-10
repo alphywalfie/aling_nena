@@ -39,6 +39,9 @@
 		Price: <%= @product.price %>
 		<form method = "POST" action = "/buy_item/<%= @product.id %>">
 		Input Quantity to Purchase: <input type = "text" name = quantity></input>
+		ENTER THE DENOMINATIONS OF YOUR PAYMENT:
+		<input type = "number" name = ones> Ones: </input>
+		<input type = "submit"> </input>
 		</form>
 
       </div>
