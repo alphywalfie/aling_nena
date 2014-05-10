@@ -1,11 +1,10 @@
 require 'sinatra'
 require './boot.rb'
-#require './money_calculator.rb'
+require './money_calculator.rb'
 
-products = Item.all
 # ROUTES FOR ADMIN SECTION
 get '/admin' do
-  @products = products
+  @products = Item.all
   erb :admin_index
 end
 
@@ -51,12 +50,13 @@ get '/about' do
 end
 
 get '/' do
-	@products = products.sample(10)
+	@productsall = Item.all
+	@products = @productsall.sample(10)
 	erb :index
 end
 
 get '/products' do
-	@products = products
+	@products = Item.all
 	erb :product_list
 end
 
@@ -67,17 +67,24 @@ end
 
 post '/buy_item/:id' do
 	@product = Item.find(params[:id])
-	quantity = params[:quantity].to_i
-	newquantity = @product.quantity - quantity
-	newsold  = @product.sold + quantity
-	@product.update_attributes!(
-	quantity: newquantity, 
-	sold: newsold,
-	)
-	
-	#@money_calc = MoneyCalculator.new(params[:ones])	
-	
-	"The new quantity is #{@product.quantity}"
-	
-	redirect to '/'
+	@quantity = params[:quantity].to_i
+	@cost = (@product.price * @quantity).to_f
+	@money_calc = MoneyCalculator.new(params[:ones], params[:fives], params[:tens], params[:twenties], params[:fifties], params[:hundreds], params[:five_hundreds], params[:thousands])
+	if(@quantity <= @product.quantity && @cost <= (@money_calc.total_payment).to_f)
+		@new_quantity = @product.quantity - @quantity
+		@new_sold  = @product.sold + @quantity
+		@product.update_attributes!(
+		quantity: @new_quantity, 
+		sold: @new_sold,
+		)
+		@change_amount = @money_calc.change_amount(@money_calc.total_payment, @cost)
+		@change = @money_calc.change(@cost)
+	else
+		redirect to '/error'
+	end
+	erb :buy_confirmation
+end
+
+get '/error' do
+	erb :error
 end
