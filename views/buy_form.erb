@@ -27,20 +27,18 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Aling Nena</a>
-        </div>
-		<div class = "container">
-		    <ul class="nav navbar-nav">
-				<li class = "link" href = "/about">About</a></li>
-				<li class = "link" href = "/products">Products</a></li>
-			</ul>
-      </div>
+        <a class="navbar-brand" href="/">Aling Nena</a>
+		<a class = "navbar-text" href = "/about">About</a>
+		<a class = "navbar-text" href = "/products">Products</a>
+		</div>
     </div>
+	</div>
 
     <div class="container">
 
       <div class="admin">
         <h1><%= "Purchase #{@product.name} at PHP #{@product.price} Each" %></h1>
+		<h3><%= "Available stock: #{@product.quantity}" %></h3>
         <form role="form" method="POST" action="/buy_item/<%= @product.id %>">
           <form class="form-horizontal" role="form">
             <div class="form-group">
